@@ -119,22 +119,22 @@ class FetchLatestChallenges extends Command
             $difficulty = strtolower($matches['difficulty']);
             $url = $data['url'];
 
-//            $thread_already_stored = Thread::where([
-//                'title' => $title,
-//                'difficulty' => $difficulty,
-//                'url' => $url
-//            ])->count() > 0;
-//
-//            if (! $thread_already_stored) {
-//                Thread::create([
-//                    'title' => $title,
-//                    'difficulty' => $difficulty,
-//                    'url' => $data['url'],
-//                    'published_at' => $data['published_at'],
-//                    'content' => $data['content'],
-//                    'html_content' => $data['html_content']
-//                ]);
-//            }
+            $thread_already_stored = Thread::where([
+                'title' => $title,
+                'difficulty' => $difficulty,
+                'url' => $url
+            ])->count() > 0;
+
+            if (! $thread_already_stored) {
+                Thread::create([
+                    'title' => $title,
+                    'difficulty' => $difficulty,
+                    'url' => $data['url'],
+                    'published_at' => $data['published_at'],
+                    'content' => $data['content'],
+                    'html_content' => $data['html_content']
+                ]);
+            }
         } else {
             $this->warn($data['title'] . ' failed to match pattern');
         }
