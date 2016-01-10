@@ -1,3 +1,4 @@
+node_modules/
 .gitattributes
 .idea/
 /bootstrap/compiled.php
