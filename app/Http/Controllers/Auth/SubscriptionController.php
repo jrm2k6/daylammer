@@ -1,6 +1,7 @@
 <?php namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\User;
 use Illuminate\Http\Request;
 
 class SubscriptionController extends Controller
@@ -21,6 +22,15 @@ class SubscriptionController extends Controller
             'email' => 'required|email|unique:users',
             'frequency_hidden' => 'required|string|in:weekly,new-challenge'
         ], $this->messages());
+
+        $user = User::create([
+            'email' => $request->input('email'),
+            'frequency' => $request->input('frequency_hidden')
+        ]);
+
+        $user->save();
+
+        return view('subscription_success', ['email' => $user->email]);
     }
 
     private function messages()
