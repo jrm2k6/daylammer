@@ -1,45 +1,35 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Laravel</title>
+@extends('layouts.layout_base')
 
-        <link href="https://fonts.googleapis.com/css?family=Lato:100" rel="stylesheet" type="text/css">
-
-        <style>
-            html, body {
-                height: 100%;
-            }
-
-            body {
-                margin: 0;
-                padding: 0;
-                width: 100%;
-                display: table;
-                font-weight: 100;
-                font-family: 'Lato';
-            }
-
-            .container {
-                text-align: center;
-                display: table-cell;
-                vertical-align: middle;
-            }
-
-            .content {
-                text-align: center;
-                display: inline-block;
-            }
-
-            .title {
-                font-size: 96px;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="container">
-            <div class="content">
-                <div class="title">Laravel 5</div>
-            </div>
+@section('content')
+<div id="content">
+    <div id="header">
+        <div class="header-title">
+            <h1>Daylammer</h1>
         </div>
-    </body>
-</html>
+        <div class="header-content">
+            <p>Simple newsletter for r/dailyprogrammer challenges!</p>
+            <p>Learning how to code? Keeping your skills sharp? Get challenges directly to your inbox!</p>
+        </div>
+    </div>
+    <div id="container">
+        <div class="subscribe-form">
+            <p class="description-field">Enter your email</p>
+            <input id="email" type="text">
+            <p class="description-field">Select when you want to receive your challenges by email</p>
+            <div class="frequency-selection">
+                <p>
+                    <input class="with-gap frequency-selection-radio" name="frequency" type="radio" id="new-challenge"  />
+                    <label for="new-challenge">Day a new challenge is up</label>
+                </p>
+                <p>
+                    <input class="with-gap frequency-selection-radio" name="frequency" type="radio" id="weekly"  />
+                    <label for="weekly">Weekly</label>
+                </p>
+            </div>
+            <button class="btn waves-effect waves-light btn-large" type="submit" name="action">Subscribe
+                <i class="material-icons right">send</i>
+            </button>
+        </div>
+    </div>
+</div>
+@endsection

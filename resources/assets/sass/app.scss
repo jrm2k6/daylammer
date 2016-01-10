@@ -1,2 +1,69 @@
-// @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+#content {
+  height: 800px;
+  display: flex;
+  flex-direction: column;
+}
+
+
+#header {
+  display: flex;
+  flex-direction: column;
+
+  flex: 1;
+  background-color: #4A6D7C;
+  color: #FFF;
+
+  .header-title {
+    padding-left: 6rem;
+    h1 {
+      font-weight: 300;
+      font-size: 4.2rem;
+    }
+  }
+
+  .header-content {
+    align-items: center;
+    p {
+      text-align: center;
+      font-size: 1.6rem;
+      font-weight: 300;
+    }
+  }
+}
+
+
+#container {
+  flex: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .subscribe-form {
+    width: 50%;
+    color: black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    .description-field {
+      color: #62929E;
+      font-weight: bold;
+      font-size: 1.6rem;
+    }
+
+    .btn {
+      margin-top: 3rem;
+      background: #62929E;
+    }
+  }
+
+  .frequency-selection {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+  }
+}
+
+
 
