@@ -156,6 +156,10 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        /*
+         * Packages
+         */
+        Collective\Html\HtmlServiceProvider::class,
         JD\Laradit\LaraditAuthenticationServiceProvider::class,
         JD\Laradit\LaraditResourceServiceProvider::class,
     ],
@@ -204,6 +208,11 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View'      => Illuminate\Support\Facades\View::class,
 
+        /*
+         * Packages
+         */
+        'Form' => Collective\Html\FormFacade::class,
+        'Html' => Collective\Html\HtmlFacade::class,
     ],
 
 ];
