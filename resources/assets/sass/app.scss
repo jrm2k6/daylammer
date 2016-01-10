@@ -12,6 +12,7 @@
   flex: 1;
   background-color: #4A6D7C;
   color: #FFF;
+  padding-bottom: 1.1rem;
 
   .header-title {
     padding-left: 6rem;
@@ -29,6 +30,15 @@
       font-weight: 300;
     }
   }
+}
+
+.alert-error {
+  background-color: #D05454;
+  color: #FFF;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 

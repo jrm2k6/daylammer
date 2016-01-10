@@ -11,6 +11,15 @@
             <p>Learning how to code? Keeping your skills sharp? Get challenges directly to your inbox!</p>
         </div>
     </div>
+    @if (count($errors) > 0)
+        <div class="alert-error">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
     <div id="container">
         {!! Form::open(['url' => '/subscribe', 'class' => 'subscribe-form']) !!}
             <p class="description-field">Enter your email</p>
