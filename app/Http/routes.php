@@ -27,4 +27,6 @@ Route::group(['middleware' => ['web']], function () {
         return view('welcome');
     });
     Route::post('/subscribe', 'Auth\SubscriptionController@createSubscription');
+    Route::get('/confirm', 'Auth\SubscriptionController@confirmSubscription');
+    Route::get('/resend-confirmation', 'Auth\SubscriptionController@resendConfirmation');
 });

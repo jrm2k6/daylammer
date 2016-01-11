@@ -4,6 +4,15 @@
   flex-direction: column;
 }
 
+#content-success-subscription {
+  @extend #content;
+  justify-content: center;
+  align-items: center;
+
+  color: #62929E;
+  font-weight: bold;
+  font-size: 1.6rem;
+}
 
 #header {
   display: flex;
