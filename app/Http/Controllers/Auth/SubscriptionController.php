@@ -3,6 +3,7 @@
 use App\Events\ResendConfirmationEmailEvent;
 use App\Events\SubscriptionCreated;
 use App\Http\Controllers\Controller;
+use App\Http\Helpers\ChallengeHelper;
 use App\Models\ConfirmationToken;
 use App\User;
 use Carbon\Carbon;
@@ -48,7 +49,10 @@ class SubscriptionController extends Controller
         $token = ConfirmationToken::where('token', $request->input('token'))->first();
 
         if (Carbon::now()->subWeeks(2) < $token->updated_at) {
-            return view('subscription_confirmed', ['email' => $token->user->email]);
+            return view('subscription_confirmed', [
+                'email' => $token->user->email,
+                'date_next_email' => ChallengeHelper::getNextEmailApproximateDate($token->user->frequency)
+            ]);
         } else {
             return view('subscription_token_expired', ['email' => $token->user->email]);
         }
