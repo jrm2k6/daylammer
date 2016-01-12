@@ -13,7 +13,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'frequency'
+        'name', 'email', 'password', 'frequency', 'confirmed'
     ];
 
     /**
@@ -28,5 +28,11 @@ class User extends Authenticatable
     public function confirmationToken()
     {
         return $this->hasOne(ConfirmationToken::class);
+    }
+
+    public function setAsConfirmedUser()
+    {
+        $this->confirmed = true;
+        $this->save();
     }
 }

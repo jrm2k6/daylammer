@@ -46,9 +46,15 @@ class SubscriptionController extends Controller
             'token' => 'required|size:17|exists:confirmation_tokens,token'
         ], $this->confirmSubscriptionMessages());
 
+        /** @var ConfirmationToken $token */
         $token = ConfirmationToken::where('token', $request->input('token'))->first();
 
+        /** @var User $user */
+        $user = $token->user;
+
         if (Carbon::now()->subWeeks(2) < $token->updated_at) {
+            $user->setAsConfirmedUser();
+
             return view('subscription_confirmed', [
                 'email' => $token->user->email,
                 'date_next_email' => ChallengeHelper::getNextEmailApproximateDate($token->user->frequency)
