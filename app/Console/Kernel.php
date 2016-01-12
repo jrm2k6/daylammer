@@ -13,7 +13,9 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-         Commands\FetchLatestChallenges::class,
+        Commands\FetchLatestChallenges::class,
+        Commands\SendNewChallengeEmails::class,
+        Commands\SendNewChallengesWeeklyEmails::class,
     ];
 
     /**
@@ -24,6 +26,6 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-         $schedule->command('daylammer:latest')->dailyAt('10:00');
+        $schedule->command('daylammer:latest')->dailyAt('10:00');
     }
 }
