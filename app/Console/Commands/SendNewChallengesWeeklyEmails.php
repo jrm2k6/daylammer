@@ -8,6 +8,7 @@ use App\User;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 use Illuminate\Foundation\Bus\DispatchesJobs;
+use Illuminate\Support\Facades\Mail;
 
 class SendNewChallengesWeeklyEmails extends Command
 {
@@ -43,18 +44,19 @@ class SendNewChallengesWeeklyEmails extends Command
      */
     public function handle()
     {
-        $users = User::where(['frequency' => 'weekly', 'confirmed' => true])->get();
-        $threads = Thread::all();
-        $currentWeekIndex = Carbon::now()->weekOfYear;
-        $currentYear = Carbon::now()->year;
+//        $users = User::where(['frequency' => 'weekly', 'confirmed' => true])->get();
+//        $threads = Thread::all();
+//        $currentWeekIndex = Carbon::now()->weekOfYear;
+//        $currentYear = Carbon::now()->year;
+//
+//        $current_week_challenges = $threads->filter(function($thread) use ($currentWeekIndex, $currentYear) {
+//            return $thread->published_at->weekOfYear == $currentWeekIndex
+//                && $thread->published_at->year == $currentYear;
+//        });
+//
+//        $users->each(function($user) use ($current_week_challenges) {
+            $this->dispatch(new SendChallengesEmail());
+//        });
 
-        $current_week_challenges = $threads->filter(function($thread) use ($currentWeekIndex, $currentYear) {
-            return $thread->published_at->weekOfYear == $currentWeekIndex
-                && $thread->published_at->year == $currentYear;
-        });
-
-        $users->each(function($user) use ($current_week_challenges) {
-            $this->dispatch(new SendChallengesEmail($user, $current_week_challenges));
-        });
     }
 }

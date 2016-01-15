@@ -2,10 +2,11 @@
 
 namespace App\Jobs;
 
-use App\Jobs\Job;
+use App\User;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Support\Facades\Mail;
 
 class SendChallengesEmail extends Job implements ShouldQueue
 {
@@ -14,11 +15,10 @@ class SendChallengesEmail extends Job implements ShouldQueue
     /**
      * Create a new job instance.
      *
-     * @return void
+     * @param User $user
      */
     public function __construct()
     {
-        //
     }
 
     /**
@@ -28,6 +28,12 @@ class SendChallengesEmail extends Job implements ShouldQueue
      */
     public function handle()
     {
-        //
+        Mail::send('emails.weekly', [],
+            function ($message) {
+                $message->from('me@jeremydagorn.com', 'Your weekly newsletter');
+
+                $message->to('jeremy.dagorn@gmail.com');
+            }
+        );
     }
 }
