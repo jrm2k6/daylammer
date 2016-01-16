@@ -28,12 +28,12 @@ class Kernel extends ConsoleKernel
     {
         $schedule->command('daylammer:latest')->dailyAt('10:00');
 
-        $schedule->command('daylammer:new_challenge_email')->tuesdays()->emailOutputTo(env('ADMIN_EMAIL'));
+        $schedule->command('daylammer:new_challenge_email')->tuesdays();
 
-        $schedule->command('daylammer:new_challenge_email')->thursdays()->emailOutputTo(env('ADMIN_EMAIL'));
+        $schedule->command('daylammer:new_challenge_email')->thursdays();
 
-        $schedule->command('daylammer:new_challenge_email')->saturdays()->emailOutputTo(env('ADMIN_EMAIL'));
+        $schedule->command('daylammer:new_challenge_email')->saturdays();
 
-        $schedule->command('daylammer:weekly_email')->saturdays()->emailOutputTo(env('ADMIN_EMAIL'));
+        $schedule->command('daylammer:weekly_email')->saturdays();
     }
 }
