@@ -40,6 +40,17 @@ class SubscriptionController extends Controller
         return view('subscription_success', ['email' => $user->email]);
     }
 
+    public function deleteSubscription(Request $request)
+    {
+        $this->validate($request, [
+            'email' => 'required|email',
+        ], $this->deleteSubscriptionMessages());
+
+        User::where('email', $request->input('email'))->first()->delete();
+
+        return view('welcome');
+    }
+
     public function confirmSubscription(Request $request)
     {
         $this->validate($request, [
@@ -84,6 +95,13 @@ class SubscriptionController extends Controller
             'email.email'  => 'Your email is invalid',
             'email.unique'  => 'Your email is already taken',
             'frequency_hidden.required' => 'You need to select when you want to get emails'
+        ];
+    }
+
+    private function deleteSubscriptionMessages()
+    {
+        return [
+            'email' => 'Email not found'
         ];
     }
 
