@@ -27,5 +27,13 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->command('daylammer:latest')->dailyAt('10:00');
+
+        $schedule->command('daylammer:new_challenge_email')->tuesdays()->emailOutputTo(env('ADMIN_EMAIL'));
+
+        $schedule->command('daylammer:new_challenge_email')->thursdays()->emailOutputTo(env('ADMIN_EMAIL'));
+
+        $schedule->command('daylammer:new_challenge_email')->saturdays()->emailOutputTo(env('ADMIN_EMAIL'));
+
+        $schedule->command('daylammer:weekly_email')->saturdays()->emailOutputTo(env('ADMIN_EMAIL'));
     }
 }
