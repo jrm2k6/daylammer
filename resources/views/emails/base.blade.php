@@ -10,7 +10,7 @@
             <table border="0" cellpadding="0" cellspacing="0"
                    style="width: 100%;text-align: center;background-color: #4A6D7C;height: 60px; font-size: 0.6rem;color: white;">
                 <td>You are receiving this email because you have subscribed to daylammer.jeremydagorn.com</td>
-                <tr><td><a href="{{URL::to('/unsubscribe?email='.$email)}}">Unsubscribe</a> | <a href="http://www.jeremydagorn.com">Made by Jeremy Dagorn</a></td></tr>
+                <tr><td><a style="text-decoration: none; color: #FFFFFF;" href="http://www.daylammer.jeremydagorn.com/unsubscribe?email={{$email}}">Unsubscribe</a> | <a style="text-decoration: none; color: #FFFFFF;" href="http://www.jeremydagorn.com">Made by Jeremy Dagorn</a></td></tr>
             </table>
         </td>
     </tr>
