@@ -8,6 +8,8 @@ use App\User;
 use Illuminate\Console\Command;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 
+use League\CommonMark\CommonMarkConverter;
+
 class SendNewChallengeEmails extends Command
 {
     use DispatchesJobs;
@@ -44,9 +46,11 @@ class SendNewChallengeEmails extends Command
     {
         $users = User::where(['frequency' => 'new-challenge', 'confirmed' => true])->get();
         $latest_challenge = Thread::all()->sortByDesc('published_at')->first();
+        $latest_challenge->markdown_content = (new CommonMarkConverter())->convertToHtml($latest_challenge->content);
+        $latest_challenge->markdown_content = str_replace('<pre>', '<pre style="white-space: pre-wrap;"', $latest_challenge->markdown_content);
 
         $users->each(function($user) use ($latest_challenge) {
-            $this->dispatch(new SendChallengesEmail($user, [$latest_challenge]));
+            $this->dispatch(new SendChallengesEmail($user, collect([$latest_challenge]), 'new-challenge'));
         });
 
     }

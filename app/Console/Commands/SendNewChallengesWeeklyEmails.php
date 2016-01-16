@@ -8,7 +8,7 @@ use App\User;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 use Illuminate\Foundation\Bus\DispatchesJobs;
-use Illuminate\Support\Facades\Mail;
+use League\CommonMark\CommonMarkConverter;
 
 class SendNewChallengesWeeklyEmails extends Command
 {
@@ -44,19 +44,25 @@ class SendNewChallengesWeeklyEmails extends Command
      */
     public function handle()
     {
-//        $users = User::where(['frequency' => 'weekly', 'confirmed' => true])->get();
-//        $threads = Thread::all();
-//        $currentWeekIndex = Carbon::now()->weekOfYear;
-//        $currentYear = Carbon::now()->year;
-//
-//        $current_week_challenges = $threads->filter(function($thread) use ($currentWeekIndex, $currentYear) {
-//            return $thread->published_at->weekOfYear == $currentWeekIndex
-//                && $thread->published_at->year == $currentYear;
-//        });
-//
-//        $users->each(function($user) use ($current_week_challenges) {
-            $this->dispatch(new SendChallengesEmail());
-//        });
+        $users = User::where(['frequency' => 'weekly', 'confirmed' => true])->get();
+        $threads = Thread::all();
+        $currentWeekIndex = Carbon::now()->weekOfYear;
+        $currentYear = Carbon::now()->year;
 
+        $currentWeekChallenges = $threads->filter(function($thread) use ($currentWeekIndex, $currentYear) {
+            return $thread->published_at->weekOfYear == $currentWeekIndex
+                && $thread->published_at->year == $currentYear;
+        });
+
+        $markdownConverter = new CommonMarkConverter();
+
+        $currentWeekChallenges->map(function($challenge) use ($markdownConverter) {
+            $challenge->markdown_content = $markdownConverter->convertToHtml($challenge->content);
+            $challenge->markdown_content = str_replace('<pre>', '<pre style="white-space: pre-wrap;"', $challenge->markdown_content);
+        });
+
+        $users->each(function($user) use ($currentWeekChallenges) {
+            $this->dispatch(new SendChallengesEmail($user, $currentWeekChallenges, 'weekly'));
+        });
     }
 }

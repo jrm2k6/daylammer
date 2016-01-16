@@ -30,7 +30,7 @@ class SendSubscriptionCreatedConfirmationEmail
         $email = $event->confirmationToken->user->email;
         $token = $event->confirmationToken->token;
 
-        Mail::send('emails.confirmation_subscription', ['confirmation_token' => $token],
+        Mail::send('emails.confirmation_subscription', ['confirmation_token' => $token, 'email' => $email],
             function ($message) use ($email) {
                 $message->from('me@jeremydagorn.com', 'Laravel');
 
