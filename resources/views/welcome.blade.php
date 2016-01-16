@@ -28,7 +28,7 @@
             <div class="frequency-selection">
                 <p>
                     <input class="with-gap frequency-selection-radio" name="frequency" type="radio" id="new-challenge"  />
-                    <label for="new-challenge">Day a new challenge is up</label>
+                    <label for="new-challenge">Every challenge</label>
                 </p>
                 <p>
                     <input class="with-gap frequency-selection-radio" name="frequency" type="radio" id="weekly"  />
