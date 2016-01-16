@@ -32,7 +32,7 @@ class SendSubscriptionCreatedConfirmationEmail
 
         Mail::send('emails.confirmation_subscription', ['confirmation_token' => $token, 'email' => $email],
             function ($message) use ($email) {
-                $message->from('me@jeremydagorn.com', 'Laravel');
+                $message->from('me@jeremydagorn.com', 'Daylammer - Confirm your subscription');
 
                 $message->to($email);
             }
