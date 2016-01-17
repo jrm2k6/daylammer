@@ -33,8 +33,6 @@ class SubscriptionController extends Controller
             'frequency' => $request->input('frequency_hidden')
         ]);
 
-        $user->save();
-
         event(new SubscriptionCreated($user));
 
         return view('subscription_success', ['email' => $user->email]);
