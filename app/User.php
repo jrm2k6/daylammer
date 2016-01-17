@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Models\ConfirmationToken;
+use App\Models\DifficultyUser;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
@@ -28,6 +29,11 @@ class User extends Authenticatable
     public function confirmationToken()
     {
         return $this->hasOne(ConfirmationToken::class);
+    }
+
+    public function difficulties()
+    {
+        return $this->hasMany(DifficultyUser::class);
     }
 
     public function setAsConfirmedUser()

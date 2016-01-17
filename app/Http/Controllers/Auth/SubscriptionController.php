@@ -4,6 +4,7 @@ use App\Events\ResendConfirmationEmailEvent;
 use App\Events\SubscriptionCreated;
 use App\Http\Controllers\Controller;
 use App\Http\Helpers\ChallengeHelper;
+use App\Http\Helpers\SubscriptionHelper;
 use App\Models\ConfirmationToken;
 use App\User;
 use Carbon\Carbon;
@@ -25,13 +26,22 @@ class SubscriptionController extends Controller
     {
         $this->validate($request, [
             'email' => 'required|email|unique:users',
-            'frequency_hidden' => 'required|string|in:weekly,new-challenge'
+            'frequency_hidden' => 'required|string|in:weekly,new-challenge',
+            'difficulty_easy' => 'sometimes|string|in:on',
+            'difficulty_moderate' => 'sometimes|string|in:on',
+            'difficulty_hard' => 'sometimes|string|in:on',
+            'difficulty_all' =>
+                'required_without_all:difficulty_easy,difficulty_moderate,difficulty_heard|string|in:on',
         ], $this->createSubscriptionMessages());
 
+        /* @var User $user*/
         $user = User::create([
             'email' => $request->input('email'),
             'frequency' => $request->input('frequency_hidden')
         ]);
+
+        $submittedDifficulties = $request->only(['difficulty_easy', 'difficulty_moderate', 'difficulty_hard', 'difficulty_all']);
+        SubscriptionHelper::saveDifficultiesForUser($submittedDifficulties, $user->id);
 
         event(new SubscriptionCreated($user));
 
@@ -92,7 +102,8 @@ class SubscriptionController extends Controller
             'email.required' => 'You need to specify your email.',
             'email.email'  => 'Your email is invalid',
             'email.unique'  => 'Your email is already taken',
-            'frequency_hidden.required' => 'You need to select when you want to get emails'
+            'frequency_hidden.required' => 'You need to select when you want to get emails',
+            'difficulty_all.required_without_all' => 'You need to select a challenge difficulty.'
         ];
     }
 

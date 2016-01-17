@@ -36,6 +36,26 @@
                 </p>
                 <input id="frequency" name="frequency_hidden" type="hidden">
             </div>
+        <p class="description-field">Select the level of difficulty for the challenges you want to receive</p>
+            <div class="difficulty-selection">
+                <p>
+                    <input type="checkbox" class="filled-in" id="difficulty-easy" name="difficulty_easy"/>
+                    <label for="difficulty-easy">Easy</label>
+                </p>
+                <p>
+                    <input type="checkbox" class="filled-in" id="difficulty-moderate" name="difficulty_moderate"/>
+                    <label for="difficulty-moderate">Moderate</label>
+                </p>
+                <p>
+                    <input type="checkbox" class="filled-in" id="difficulty-hard" name="difficulty_hard"/>
+                    <label for="difficulty-hard">Hard</label>
+                </p>
+
+                <p>
+                    <input type="checkbox" class="filled-in" id="difficulty-all" name="difficulty_all" checked="checked"/>
+                    <label for="difficulty-all">All</label>
+                </p>
+            </div>
             <button class="btn waves-effect waves-light btn-large" type="submit" name="action">Subscribe
                 <i class="material-icons right">send</i>
             </button>
