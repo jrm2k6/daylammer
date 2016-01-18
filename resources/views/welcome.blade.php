@@ -24,6 +24,9 @@
         {!! Form::open(['url' => '/subscribe', 'class' => 'subscribe-form']) !!}
             <p class="description-field">Enter your email</p>
             <input id="email" type="text" name="email">
+            <p class="description-field">Enter your password</p>
+            <input id="password" type="password" name="password">
+
             <p class="description-field">Select when you want to receive your challenges by email</p>
             <div class="frequency-selection">
                 <p>

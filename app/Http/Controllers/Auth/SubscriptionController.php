@@ -26,6 +26,7 @@ class SubscriptionController extends Controller
     {
         $this->validate($request, [
             'email' => 'required|email|unique:users',
+            'password' => 'required|min:8',
             'frequency_hidden' => 'required|string|in:weekly,new-challenge',
             'difficulty_easy' => 'sometimes|string|in:on',
             'difficulty_moderate' => 'sometimes|string|in:on',
@@ -37,6 +38,7 @@ class SubscriptionController extends Controller
         /* @var User $user*/
         $user = User::create([
             'email' => $request->input('email'),
+            'password' => bcrypt($request->input('password')),
             'frequency' => $request->input('frequency_hidden')
         ]);
 
@@ -101,6 +103,7 @@ class SubscriptionController extends Controller
         return [
             'email.required' => 'You need to specify your email.',
             'email.email'  => 'Your email is invalid',
+            'password.required'  => 'Your need to specify a password',
             'email.unique'  => 'Your email is already taken',
             'frequency_hidden.required' => 'You need to select when you want to get emails',
             'difficulty_all.required_without_all' => 'You need to select a challenge difficulty.'
