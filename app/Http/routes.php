@@ -30,4 +30,7 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/unsubscribe', 'Auth\SubscriptionController@deleteSubscription');
     Route::get('/confirm', 'Auth\SubscriptionController@confirmSubscription');
     Route::get('/resend-confirmation', 'Auth\SubscriptionController@resendConfirmation');
+    Route::get('/login', 'Auth\LoginController@home');
+    Route::post('/login', 'Auth\LoginController@login');
+    Route::get('/settings', 'SettingsController@home');
 });

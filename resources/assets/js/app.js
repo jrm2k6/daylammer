@@ -10,4 +10,8 @@ $(document).ready(function() {
             $('#frequency').val('weekly');
         }
     });
+
+    $('.register-btn').click(function() {
+        window.location = '/';
+    });
 });

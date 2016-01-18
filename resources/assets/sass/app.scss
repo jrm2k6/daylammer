@@ -95,11 +95,52 @@
     }
   }
 
+  .login-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 50%;
+    margin-top: 10%;
+
+    .login-form-buttons {
+      display: flex;
+      width: 100%;
+      justify-content: space-between;
+
+      .register-btn {
+        background-color: #9d9d9d;
+      }
+    }
+
+    .already-registered {
+      width: 100%;
+      font-size: 11px;
+      margin-bottom: 1.5rem;
+
+      a {
+        text-decoration: none;
+        color: #62929E;
+      }
+    }
+  }
+
   .frequency-selection, .difficulty-selection {
     width: 100%;
     display: flex;
     justify-content: space-around;
   }
+}
+
+.small-header {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #FFF;
+  font-weight: bold;
+  background-color: #4A6D7C;
+  height: 50px;
 }
 
 
