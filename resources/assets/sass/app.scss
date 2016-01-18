@@ -24,10 +24,28 @@
   padding-bottom: 1.1rem;
 
   .header-title {
+    display: flex;
     padding-left: 6rem;
     h1 {
       font-weight: 300;
       font-size: 4.2rem;
+      flex: 1;
+    }
+
+    .header-login {
+      float: right;
+      padding-top: 1.5rem;
+      padding-right: 2.5rem;
+
+      a {
+        text-decoration: none;
+        color: #FFF;
+        font-size: 14px;
+        text-transform: uppercase;
+        border: 2px solid #FFF;
+        padding: 9px 9px;
+        letter-spacing: 1px;
+      }
     }
   }
 

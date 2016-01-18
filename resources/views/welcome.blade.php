@@ -5,6 +5,9 @@
     <div id="header">
         <div class="header-title">
             <h1>Daylammer</h1>
+            <div class="header-login">
+                <a href="/login">Login</a>
+            </div>
         </div>
         <div class="header-content">
             <p>Simple newsletter for r/dailyprogrammer challenges!</p>
