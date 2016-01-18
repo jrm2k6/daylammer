@@ -32,5 +32,6 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/resend-confirmation', 'Auth\SubscriptionController@resendConfirmation');
     Route::get('/login', 'Auth\LoginController@home');
     Route::post('/login', 'Auth\LoginController@login');
+Route::group(['middleware' => ['web', 'auth']], function () {
     Route::get('/settings', 'SettingsController@home');
 });
