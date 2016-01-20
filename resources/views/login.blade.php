@@ -15,7 +15,7 @@
             <input type="text" name="email" placeholder="Email">
             <input class="login-password" type="password" name="password" placeholder="Password">
             <div class="already-registered">
-                <a href="/#">I am already registered but I don't have a password!</a>
+                <a href="/create-password">I am already registered but I don't have a password!</a>
             </div>
             <div class="login-form-buttons">
                 <button class="btn waves-effect waves-light btn-large" type="submit" name="action">Login
