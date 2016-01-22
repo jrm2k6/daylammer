@@ -3,6 +3,7 @@
 use App\Models\Difficulty;
 use App\Models\DifficultyUser;
 use App\Models\Frequency;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -39,14 +40,29 @@ class SettingsController extends Controller
 
         DifficultyUser::where('user_id', $user->id)->delete();
 
-        collect($request->input('difficulties'))->each(function($id) use ($user) {
-            DifficultyUser::create([
-                'user_id' => $user->id,
-                'difficulty_id' => $id
-            ]);
-        });
+        $this->updateUserDifficulties($user, collect($request->input('difficulties')));
 
         return response(['message' => 'Changes saved!'], 200);
+    }
+
+    public function updateUserDifficulties(User $user, $difficulties) {
+        $difficultiesId = Difficulty::where('short_name', '<>', 'all')->pluck('id');
+        $difficultiesId = collect($difficultiesId);
+
+        if ($difficultiesId->intersect($difficulties)->count() == $difficultiesId->count()) {
+            // User is interested in all difficulties
+            DifficultyUser::create([
+                'user_id' => $user->id,
+                'difficulty_id' => Difficulty::where('short_name', 'all')->first()->id
+            ]);
+        } else {
+            $difficulties->each(function($id) use ($user) {
+                DifficultyUser::create([
+                    'user_id' => $user->id,
+                    'difficulty_id' => $id
+                ]);
+            });
+        }
     }
 
     public function updateFrequency(Request $request)
