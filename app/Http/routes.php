@@ -34,9 +34,10 @@ Route::group(['middleware' => ['web']], function () {
     Route::post('/login', 'Auth\LoginController@login');
     Route::get('/create-password', 'Auth\PasswordController@home');
     Route::post('/create-password', 'Auth\PasswordController@createPassword');
-    Route::get('/settings', 'SettingsController@home');
 });
 
 Route::group(['middleware' => ['web', 'auth']], function () {
     Route::get('/settings', 'SettingsController@home');
+    Route::post('/settings/difficulties/update', 'SettingsController@updateDifficulties');
+    Route::post('/settings/frequency/update', 'SettingsController@updateFrequency');
 });
