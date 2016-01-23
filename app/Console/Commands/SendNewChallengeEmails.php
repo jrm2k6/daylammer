@@ -45,12 +45,20 @@ class SendNewChallengeEmails extends Command
     public function handle()
     {
         $users = User::where(['frequency' => 'new-challenge', 'confirmed' => true])->get();
-        $latest_challenge = Thread::all()->sortByDesc('published_at')->first();
-        $latest_challenge->markdown_content = (new CommonMarkConverter())->convertToHtml($latest_challenge->content);
-        $latest_challenge->markdown_content = str_replace('<pre>', '<pre style="white-space: pre-wrap;"', $latest_challenge->markdown_content);
+        $latestChallenge = Thread::all()->sortByDesc('published_at')->first();
+        $latestChallenge->markdown_content = (new CommonMarkConverter())->convertToHtml($latestChallenge->content);
+        $latestChallenge->markdown_content = str_replace('<pre>', '<pre style="white-space: pre-wrap;"', $latestChallenge->markdown_content);
 
-        $users->each(function($user) use ($latest_challenge) {
-            $this->dispatch(new SendChallengesEmail($user, collect([$latest_challenge]), 'new-challenge'));
+        $latestChallengeDifficulty = $latestChallenge->difficulty;
+
+        $users = $users->filter(function($user) use ($latestChallengeDifficulty) {
+            return $user->hasDifficulty($latestChallengeDifficulty)
+                || $user->hasDifficulty('all')
+                || collect($user->difficulties)->count() == 0;
+        });
+        
+        $users->each(function($user) use ($latestChallenge) {
+            $this->dispatch(new SendChallengesEmail($user, collect([$latestChallenge]), 'new-challenge'));
         });
 
     }

@@ -62,7 +62,28 @@ class SendNewChallengesWeeklyEmails extends Command
         });
 
         $users->each(function($user) use ($currentWeekChallenges) {
-            $this->dispatch(new SendChallengesEmail($user, $currentWeekChallenges, 'weekly'));
+            $challengesForUser = $this->getChallengesForCurrentUser($user, $currentWeekChallenges);
+            $this->dispatch(new SendChallengesEmail($user, $challengesForUser, 'weekly'));
         });
+    }
+
+    private function getChallengesForCurrentUser(User $user, $currentWeekChallenges)
+    {
+        $difficultiesUser = $user->difficulties;
+
+        if ($difficultiesUser) {
+            if ($difficultiesUser->first()->difficulty->short_name == 'all') {
+                return $currentWeekChallenges;
+            } else {
+                $difficultiesUserShortName = $difficultiesUser->map(function($item) { return $item->difficulty->short_name; });
+                $challenges = $currentWeekChallenges->filter(function($challenge) use ($difficultiesUserShortName) {
+                    return collect($difficultiesUserShortName)->contains($challenge->difficulty);
+                });
+
+                return $challenges;
+            }
+        } else {
+            return $currentWeekChallenges;
+        }
     }
 }
