@@ -36,6 +36,15 @@ class User extends Authenticatable
         return $this->hasMany(DifficultyUser::class);
     }
 
+    public function hasDifficulty($difficultyShortName)
+    {
+        $shortNameDifficulties = collect($this->difficulties)->map(function($userDifficulty) {
+            return $userDifficulty->difficulty->short_name;
+        });
+
+        return $shortNameDifficulties->contains($difficultyShortName);
+    }
+
     public function setAsConfirmedUser()
     {
         $this->confirmed = true;
