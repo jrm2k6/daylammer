@@ -17,7 +17,7 @@ class FrequencyAndDifficultySeeder extends Seeder
         Frequency::create(['short_name' => 'weekly', 'name' => 'Weekly']);
 
         Difficulty::create(['short_name' => 'easy', 'name' => 'Easy']);
-        Difficulty::create(['short_name' => 'moderate', 'name' => 'Moderate']);
+        Difficulty::create(['short_name' => 'intermediate', 'name' => 'Intermediate']);
         Difficulty::create(['short_name' => 'hard', 'name' => 'Hard']);
         Difficulty::create(['short_name' => 'all', 'name' => 'All']);
 
