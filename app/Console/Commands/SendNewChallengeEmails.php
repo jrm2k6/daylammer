@@ -56,7 +56,7 @@ class SendNewChallengeEmails extends Command
                 || $user->hasDifficulty('all')
                 || collect($user->difficulties)->count() == 0;
         });
-        
+
         $users->each(function($user) use ($latestChallenge) {
             $this->dispatch(new SendChallengesEmail($user, collect([$latestChallenge]), 'new-challenge'));
         });

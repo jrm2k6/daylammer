@@ -4,6 +4,7 @@ use App\Http\Controllers\Controller;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class LoginController extends Controller
 {
@@ -22,7 +23,7 @@ class LoginController extends Controller
         $this->validate($request, [
             'email' => 'required|email|exists:users,email',
             'password' => 'required|min:8'
-        ],[
+        ], [
             'email.required' => 'Email is required.',
             'email.email' => 'Email is not valid.',
             'email.exists' => 'Email is not valid.',

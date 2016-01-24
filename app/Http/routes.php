@@ -40,4 +40,5 @@ Route::group(['middleware' => ['web', 'auth']], function () {
     Route::get('/settings', 'SettingsController@home');
     Route::post('/settings/difficulties/update', 'SettingsController@updateDifficulties');
     Route::post('/settings/frequency/update', 'SettingsController@updateFrequency');
+    Route::get('/logout', 'Auth\AuthController@logout');
 });
