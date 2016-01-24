@@ -56,7 +56,7 @@ class SubscriptionController extends Controller
             'email' => 'required|email',
         ], $this->deleteSubscriptionMessages());
 
-        User::where('email', $request->input('email'))->first()->delete();
+        User::where('email', $request->input('email'))->update(['unsubscribed' => true]);
 
         return view('welcome');
     }
