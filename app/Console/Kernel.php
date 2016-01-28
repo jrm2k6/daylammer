@@ -26,7 +26,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('daylammer:latest')->dailyAt('10:00');
+        $schedule->command('daylammer:latest')->dailyAt('9:00');
 
         $schedule->command('daylammer:new_challenge_email')->tuesdays()->at('10:00');
 
