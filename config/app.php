@@ -162,6 +162,7 @@ return [
         Collective\Html\HtmlServiceProvider::class,
         JD\Laradit\LaraditAuthenticationServiceProvider::class,
         JD\Laradit\LaraditResourceServiceProvider::class,
+        Bugsnag\BugsnagLaravel\BugsnagLaravelServiceProvider::class,
     ],
 
     /*
@@ -213,6 +214,7 @@ return [
          */
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
+        'Bugsnag' => Bugsnag\BugsnagLaravel\BugsnagFacade::class,
     ],
 
 ];
