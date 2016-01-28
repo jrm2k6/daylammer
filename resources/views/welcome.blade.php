@@ -49,8 +49,8 @@
                     <label for="difficulty-easy">Easy</label>
                 </p>
                 <p>
-                    <input type="checkbox" class="filled-in" id="difficulty-moderate" name="difficulty_moderate"/>
-                    <label for="difficulty-moderate">Moderate</label>
+                    <input type="checkbox" class="filled-in" id="difficulty-intermediate" name="difficulty_intermediate"/>
+                    <label for="difficulty-intermediate">Intermediate</label>
                 </p>
                 <p>
                     <input type="checkbox" class="filled-in" id="difficulty-hard" name="difficulty_hard"/>

@@ -29,10 +29,10 @@ class SubscriptionController extends Controller
             'password' => 'required|min:8',
             'frequency_hidden' => 'required|string|in:weekly,new-challenge',
             'difficulty_easy' => 'sometimes|string|in:on',
-            'difficulty_moderate' => 'sometimes|string|in:on',
+            'difficulty_intermediate' => 'sometimes|string|in:on',
             'difficulty_hard' => 'sometimes|string|in:on',
             'difficulty_all' =>
-                'required_without_all:difficulty_easy,difficulty_moderate,difficulty_heard|string|in:on',
+                'required_without_all:difficulty_easy,difficulty_intermediate,difficulty_hard|string|in:on',
         ], $this->createSubscriptionMessages());
 
         /* @var User $user*/
@@ -42,7 +42,7 @@ class SubscriptionController extends Controller
             'frequency' => $request->input('frequency_hidden')
         ]);
 
-        $submittedDifficulties = $request->only(['difficulty_easy', 'difficulty_moderate', 'difficulty_hard', 'difficulty_all']);
+        $submittedDifficulties = $request->only(['difficulty_easy', 'difficulty_intermediate', 'difficulty_hard', 'difficulty_all']);
         SubscriptionHelper::saveDifficultiesForUser($submittedDifficulties, $user->id);
 
         event(new SubscriptionCreated($user));
