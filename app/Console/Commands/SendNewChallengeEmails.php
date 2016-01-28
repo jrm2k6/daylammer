@@ -8,6 +8,7 @@ use App\User;
 use Illuminate\Console\Command;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 
+use Illuminate\Support\Facades\Cache;
 use League\CommonMark\CommonMarkConverter;
 
 class SendNewChallengeEmails extends Command
@@ -46,6 +47,16 @@ class SendNewChallengeEmails extends Command
     {
         $users = User::where(['frequency' => 'new-challenge', 'confirmed' => true, 'unsubscribed' => false])->get();
         $latestChallenge = Thread::all()->sortByDesc('published_at')->first();
+
+        $isNewChallenge = $this->verifyNewChallenge($latestChallenge);
+
+        if (! $isNewChallenge) {
+            return;
+        }
+
+        Cache::forget('last_challenge_sent');
+        Cache::forever('last_challenge_sent', $latestChallenge);
+
         $latestChallenge->markdown_content = (new CommonMarkConverter())->convertToHtml($latestChallenge->content);
         $latestChallenge->markdown_content = str_replace('<pre>', '<pre style="white-space: pre-wrap;"', $latestChallenge->markdown_content);
 
@@ -61,5 +72,17 @@ class SendNewChallengeEmails extends Command
             $this->dispatch(new SendChallengesEmail($user, collect([$latestChallenge]), 'new-challenge'));
         });
 
+    }
+
+    private function verifyNewChallenge($latestChallenge)
+    {
+        $lastChallengeSent = Cache::get('last_challenge_sent');
+
+        if ($lastChallengeSent) {
+            return $lastChallengeSent->published_at != $latestChallenge->published_at
+                && $lastChallengeSent->difficulty != $latestChallenge->difficulty;
+        }
+
+        return true;
     }
 }

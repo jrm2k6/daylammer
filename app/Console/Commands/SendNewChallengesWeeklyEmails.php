@@ -54,6 +54,10 @@ class SendNewChallengesWeeklyEmails extends Command
                 && $thread->published_at->year == $currentYear;
         });
 
+        if ($currentWeekChallenges->count() == 0) {
+            return;
+        }
+
         $markdownConverter = new CommonMarkConverter();
 
         $currentWeekChallenges->map(function($challenge) use ($markdownConverter) {
@@ -63,14 +67,15 @@ class SendNewChallengesWeeklyEmails extends Command
 
         $users->each(function($user) use ($currentWeekChallenges) {
             $challengesForUser = $this->getChallengesForCurrentUser($user, $currentWeekChallenges);
-            $this->dispatch(new SendChallengesEmail($user, $challengesForUser, 'weekly'));
+            if ($challengesForUser->count() > 0) {
+                $this->dispatch(new SendChallengesEmail($user, $challengesForUser, 'weekly'));
+            }
         });
     }
 
     private function getChallengesForCurrentUser(User $user, $currentWeekChallenges)
     {
         $difficultiesUser = $user->difficulties;
-
         if ($difficultiesUser) {
             if ($difficultiesUser->first()->difficulty->short_name == 'all') {
                 return $currentWeekChallenges;
