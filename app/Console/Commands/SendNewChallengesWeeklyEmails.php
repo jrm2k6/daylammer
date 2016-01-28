@@ -44,7 +44,7 @@ class SendNewChallengesWeeklyEmails extends Command
      */
     public function handle()
     {
-        $users = User::where(['frequency' => 'weekly', 'confirmed' => true])->get();
+        $users = User::where(['frequency' => 'weekly', 'confirmed' => true, 'unsubscribed' => false])->get();
         $threads = Thread::all();
         $currentWeekIndex = Carbon::now()->weekOfYear;
         $currentYear = Carbon::now()->year;

@@ -44,7 +44,7 @@ class SendNewChallengeEmails extends Command
      */
     public function handle()
     {
-        $users = User::where(['frequency' => 'new-challenge', 'confirmed' => true])->get();
+        $users = User::where(['frequency' => 'new-challenge', 'confirmed' => true, 'unsubscribed' => false])->get();
         $latestChallenge = Thread::all()->sortByDesc('published_at')->first();
         $latestChallenge->markdown_content = (new CommonMarkConverter())->convertToHtml($latestChallenge->content);
         $latestChallenge->markdown_content = str_replace('<pre>', '<pre style="white-space: pre-wrap;"', $latestChallenge->markdown_content);
