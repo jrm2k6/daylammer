@@ -76,7 +76,7 @@ class SendNewChallengesWeeklyEmails extends Command
     private function getChallengesForCurrentUser(User $user, $currentWeekChallenges)
     {
         $difficultiesUser = $user->difficulties;
-        if ($difficultiesUser) {
+        if ($difficultiesUser->count() > 0) {
             if ($difficultiesUser->first()->difficulty->short_name == 'all') {
                 return $currentWeekChallenges;
             } else {
