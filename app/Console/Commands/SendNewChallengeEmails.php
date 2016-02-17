@@ -79,8 +79,7 @@ class SendNewChallengeEmails extends Command
         $lastChallengeSent = Cache::get('last_challenge_sent');
 
         if ($lastChallengeSent) {
-            return $lastChallengeSent->published_at != $latestChallenge->published_at
-                && $lastChallengeSent->difficulty != $latestChallenge->difficulty;
+            return $lastChallengeSent->published_at != $latestChallenge->published_at;
         }
 
         return true;
