@@ -16,6 +16,7 @@ class SendChallengesEmail extends Job implements ShouldQueue
     protected $user;
     protected $challenges;
     protected $subjectEmail;
+    protected $subject;
 
     /**
      * Create a new job instance.
@@ -31,8 +32,10 @@ class SendChallengesEmail extends Job implements ShouldQueue
 
         if ($type == 'weekly') {
             $this->subjectEmail = 'Daylammer - Your weekly challenges!';
+            $this->subject = 'Can you resolve these challenges?'; 
         } else {
             $this->subjectEmail = 'Daylammer - Your new challenge!';
+            $this->subject = 'Can you resolve this new challenge?'; 
         }
     }
 
@@ -46,6 +49,7 @@ class SendChallengesEmail extends Job implements ShouldQueue
         Mail::send('emails.challenges', ['challenges' => $this->challenges, 'email' => $this->user->email],
             function ($message) {
                 $message->from('me@jeremydagorn.com', $this->subjectEmail);
+		$message->subject($this->subject);
 
                 $message->to($this->user->email);
             }
