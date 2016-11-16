@@ -32,10 +32,10 @@ class SendChallengesEmail extends Job implements ShouldQueue
 
         if ($type == 'weekly') {
             $this->subjectEmail = 'Daylammer - Your weekly challenges!';
-            $this->subject = 'Can you resolve these challenges?'; 
+            $this->subject = 'Can you solve these challenges?'; 
         } else {
             $this->subjectEmail = 'Daylammer - Your new challenge!';
-            $this->subject = 'Can you resolve this new challenge?'; 
+            $this->subject = 'Can you solve this new challenge?'; 
         }
     }
 
